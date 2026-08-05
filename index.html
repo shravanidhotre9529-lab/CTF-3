@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Configurator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        body{
+    margin:0;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+  background:
+radial-gradient(circle at top,#312E81 0%,#1E293B 45%,#020617 100%);
+
+    color:#f5f3ff;
+    font-family:'Orbitron',sans-serif;
+
+    overflow:hidden;
+    perspective:1000px;
+}
+        .glitch-bg {
+            position: absolute;
+            top: -50%; left: -50%; right: -50%; bottom: -50%;
+            width: 200%; height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.1) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255, 0, 128, 0.1) 50%, transparent 52%);
+            background-size: 3em 3em;
+            z-index: -1;
+            animation: moveGrid 15s linear infinite;
+        }
+        @keyframes moveGrid {
+            0% { transform: translateZ(0) rotateX(45deg); }
+            100% { transform: translateZ(100px) rotateX(45deg); }
+        }
+       .panel{
+    background:rgba(17,24,39,0.88);
+
+    width:620px;
+    max-width:90%;
+
+    padding:40px;
+
+    border-radius:22px;
+
+    border:2px solid #6366F1;
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+        0 0 30px rgba(99,102,241,.35),
+        inset 0 0 20px rgba(129,140,248,.12);
+
+    position:relative;
+
+    animation:panelEntrance 1s ease;
+}
+        @keyframes panelEntrance {
+            from { transform: scale(0.9) translateY(20px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .panel::before, .panel::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2px solid #0ff;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        .panel::before { top: -5px; left: -5px; border-right: none; border-bottom: none; }
+        .panel::after { bottom: -5px; right: -5px; border-left: none; border-top: none; }
+        .panel:hover::before { top: -10px; left: -10px; width: 30px; height: 30px; }
+        .panel:hover::after { bottom: -10px; right: -10px; width: 30px; height: 30px; }
+        
+       h1{
+    color:#A5B4FC;
+
+    font-size:34px;
+
+    letter-spacing:3px;
+
+    margin-bottom:12px;
+
+    text-shadow:
+        0 0 15px rgba(99,102,241,.8);
+}
+        p {
+            font-size: 0.75rem;
+            color: #7a7a7a;
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
+        }
+        .control-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,255,255,0.2);
+            padding-bottom: 10px;
+        }
+        label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        select, input[type="color"] {
+            background: rgba(0,255,255,0.05);
+            color: #0ff;
+            border: 1px solid rgba(0,255,255,0.5);
+            padding: 8px;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        select:focus, input[type="color"]:hover {
+            border-color: #0ff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.5);
+        }
+       button{
+
+    width:100%;
+    margin-top:25px;
+    padding:15px;
+
+    border:none;
+    border-radius:12px;
+background:linear-gradient(
+135deg,
+#6366F1,
+#818CF8,
+#4F46E5
+);
+
+    color:white;
+
+    font-family:'Orbitron',sans-serif;
+
+    font-size:16px;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:
+        0 0 20px rgba(139,92,246,.4);
+
+}
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,255,0.4), transparent);
+            transition: all 0.5s;
+        }
+       button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 0 35px rgba(236,72,153,.55);
+
+}
+        button:hover::before {
+            left: 100%;
+        }
+        #result {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(0,255,255,0.3);
+            font-size: 0.85rem;
+            word-wrap: break-word;
+            min-height: 60px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="glitch-bg"></div>
+    <div class="panel">
+        <h1>Theme Configurator</h1>
+        <p>Powered by our custom DeepMerge™ algorithm for infinite customizability.</p>
+        
+        <div class="control-group">
+            <label for="color">Primary Color</label>
+            <input type="color" id="color" value="#00ffff">
+        </div>
+        <div class="control-group">
+            <label for="mode">Display Mode</label>
+            <select id="mode">
+                <option value="dark">Dark Mode</option>
+                <option value="light">Light Mode (Beta)</option>
+                <option value="cyber">Cyber Mode</option>
+            </select>
+        </div>
+        
+        <button id="saveBtn">Save Theme</button>
+        
+        <div id="result">Awaiting configuration...</div>
+    </div>
+
+    <script>
+        document.getElementById('saveBtn').addEventListener('click', async () => {
+            const color = document.getElementById('color').value;
+            const mode = document.getElementById('mode').value;
+            const resultDiv = document.getElementById('result');
+            
+            resultDiv.innerText = 'Merging configuration...';
+           resultDiv.style.color='#F5F3FF';
+resultDiv.style.borderColor='#8B5CF6';
+resultDiv.style.boxShadow='0 0 15px rgba(139,92,246,.5)';
+            
+            const payload = {
+                theme: { color: color, mode: mode }
+            };
+            
+            try {
+                const response = await fetch('/api/challenge-3/save-theme', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.message && data.message.includes("inroomctf")) {
+                    resultDiv.style.color='#EC4899';
+					resultDiv.style.borderColor='#EC4899';
+					resultDiv.style.boxShadow='0 0 20px rgba(236,72,153,.6)';
+                    resultDiv.innerText = `ADMIN ACCESS GRANTED:\n${data.message}`;
+                } else {
+                    resultDiv.innerText = `Success: Theme saved!\nConfig: ${JSON.stringify(data.theme)}`;
+                }
+            } catch (err) {
+                resultDiv.style.color = '#ff0080';
+                resultDiv.innerText = `Error: ${err.message}`;
+            }
+        });
+    </script>
+</body>
+</html>
